@@ -1,0 +1,7 @@
+boto3
+python-dotenv
+langchain-aws
+crewai
+pydantic
+
+# rodar pip install -r requirements.txt
