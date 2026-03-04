@@ -7,7 +7,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / ".env")
 
-print("🚀 Iniciando o Agente Titan (Claude 4.6)...")
+print("Agente Titan (Claude 4.6)...")
 
 client = boto3.client('bedrock-agent-runtime', region_name='us-east-1')
 
@@ -31,7 +31,7 @@ def ask_titan_brain(query):
     Resposta:"""
 
     try:
-        print(f"🔍 Consultando a Knowledge Base {kb_id}...")
+        print(f"Consultando a Knowledge Base {kb_id}...")
         response = client.retrieve_and_generate(
             input={'text': query},
             retrieveAndGenerateConfiguration={
@@ -50,15 +50,15 @@ def ask_titan_brain(query):
         )
         return response['output']['text']
     except Exception as e:
-        return f"❌ Erro na API: {str(e)}"
+        return f"Erro na API: {str(e)}"
 
 # ESTE BLOCO É O QUE FAZ O SCRIPT "FALAR" NO TERMINAL
 if __name__ == "__main__":
-    print("✅ Script carregado com sucesso.")
-    pergunta = input("\n❓ O que você deseja saber sobre os documentos? ")
+    print("Script carregado com sucesso.")
+    pergunta = input("\nO que você deseja saber sobre os documentos? ")
     
     if pergunta.strip():
         resultado = ask_titan_brain(pergunta)
-        print(f"\n🤖 Claude 4.6 responde:\n{resultado}")
+        print(f"\nO agente responde:\n{resultado}")
     else:
-        print("⚠️ Nenhuma pergunta foi digitada.")
+        print("ATENÇÃO! Nenhuma pergunta foi digitada.")

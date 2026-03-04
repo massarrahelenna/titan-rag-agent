@@ -43,10 +43,10 @@ def gerar_relatorio():
         "Crie uma conclusão sintetizando o estado da arte atual baseado nestes 50 documentos."
     ]
 
-    print(f"🚀 Gerando relatório de IA para {len(questoes)} tópicos...")
+    print(f"Gerando relatório de IA para {len(questoes)} tópicos...")
     
     with open("relatorio_tecnico.md", "w", encoding="utf-8") as f:
-        f.write(f"# 📊 Relatório de Análise Técnica - Agente Titan\n")
+        f.write(f"#  Relatório de Análise Técnica - Agente Titan\n")
         f.write(f"*Gerado em: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}*\n\n")
         f.write(f"--- \n\n")
 
@@ -58,7 +58,7 @@ def gerar_relatorio():
             f.write(f"{resposta}\n\n")
             
             if citacoes:
-                f.write("### 📚 Fontes S3 Consultadas:\n")
+                f.write("### Fontes S3 Consultadas:\n")
                 fontes = set()
                 for c in citacoes:
                     for s in c.get('retrievedReferences', []):
