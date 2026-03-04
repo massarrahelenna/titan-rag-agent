@@ -143,6 +143,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.aws/
+credentials/
 
 # Spyder project settings
 .spyderproject
@@ -211,3 +213,5 @@ __marimo__/
 *.tfstate
 *.tfstate.backup
 .terraform.lock.hcl
+#evitar envio dos pdfs
+data/
