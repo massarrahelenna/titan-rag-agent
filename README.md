@@ -14,3 +14,25 @@ Este agente não apenas responde perguntas; ele atua como um Pesquisador Sênior
 * **Contexto de 1 Milhão de Tokens:** Graças ao Claude 4.6 Sonnet, o agente mantém a "memória" de todo o repositório durante a análise, permitindo cruzamento de dados complexos.
 * **Geração de Relatórios:** Cria sínteses estruturadas em Markdown sobre tendências, metodologias e lacunas de pesquisa.
 * **Rastreabilidade (Citações):** Cada resposta inclui links diretos para os objetos no Amazon S3 de onde a informação foi extraída.
+
+---
+
+## 🏗️ Arquitetura do Sistema
+
+O projeto utiliza uma esteira de dados serverless na AWS para garantir escalabilidade e baixo custo:
+* **Ingestão:** Scripts em Python monitoram e enviam documentos para o Amazon S3.
+* **Vetorização:** O **Amazon Bedrock Knowledge Bases** utiliza o modelo **Titan Text Embeddings v2** para converter texto em vetores semânticos.
+* **Armazenamento:** Os vetores são indexados em um banco de dados **Vector Store** (OpenSearch Serverless).
+* **Orquestração & Inferência::** O **Claude 4.6 Sonnet** processa as consultas através de um **Inference Profile** cross-region para máxima disponibilidade.
+
+---
+
+## 🛠️ Tech Stack
+|Camada|Tecnologia|
+|------|----------|
+|Linguagem	|Python 3.12+|
+|IA Foundation Model|	Anthropic Claude 4.6 Sonnet (Lançado em Fev/2026)|
+|Orquestração de IA|	Amazon Bedrock|
+|Embeddings|	Amazon Titan Text Embeddings v2|
+|Cloud Infrastructure|	AWS (S3, IAM, OpenSearch)|
+|Interface de API|	Boto3 (AWS SDK for Python)|
