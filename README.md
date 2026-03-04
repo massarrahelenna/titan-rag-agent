@@ -62,3 +62,9 @@ AWS_SECRET_ACCESS_KEY=seu_segredo
 AWS_REGION=us-east-1
 KNOWLEDGE_BASE_ID=V9Y857FLPG
 ```
+
+### 📈 Resultados Identificados
+Em testes iniciais com a base de dados atual, o agente identificou com sucesso os seguintes pilares tecnológicos nos documentos:
+* **Robótica Embodied:** Evolução de políticas para robôs humanoides.
+* **LLM-as-a-Judge:** Automação da avaliação de modelos através de orquestração.
+* **Benchmarking Eficiente:** Novas métricas para avaliação de performance em larga escala.
