@@ -36,3 +36,29 @@ O projeto utiliza uma esteira de dados serverless na AWS para garantir escalabil
 |Embeddings|	Amazon Titan Text Embeddings v2|
 |Cloud Infrastructure|	AWS (S3, IAM, OpenSearch)|
 |Interface de API|	Boto3 (AWS SDK for Python)|
+
+---
+
+## ⚙️ Configuração e Instalação
+
+**Pré-requisitos**
+* Conta AWS com acesso ao Amazon Bedrock e Claude 4.6 habilitado.
+* Python instalado e ambiente virtual configurado.
+
+**Instalação**
+### 1. Clonar o Repositório
+```bash
+git clone https://github.com/massarrahelenna/titan.git
+cd titan
+```
+### 2. Instale as dependências:
+```bash
+pip install -r requirements.txt
+```
+### Configure suas variáveis de ambiente no arquivo `.env`:
+```bash
+AWS_ACCESS_KEY_ID=sua_chave
+AWS_SECRET_ACCESS_KEY=seu_segredo
+AWS_REGION=us-east-1
+KNOWLEDGE_BASE_ID=V9Y857FLPG
+```
