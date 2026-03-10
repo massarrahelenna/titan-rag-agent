@@ -21,10 +21,10 @@ Este agente não apenas responde perguntas; ele atua como um Pesquisador Sênior
 
 O projeto utiliza uma esteira de dados serverless na AWS:
 
-* Frontend (Streamlit): Interface de usuário para chat e upload de arquivos.
-* Backend (FastAPI): Orquestrador que gerencia o fluxo de streaming e a lógica de agentes.
-* Vetorização: Amazon Bedrock Knowledge Bases utilizando Titan Text Embeddings v2.
-* Processamento: Claude 4.6 Sonnet via Inference Profile para máxima disponibilidade.
+* **Frontend (Streamlit):** Interface de usuário para chat e upload de arquivos.
+* **Backend (FastAPI):** Orquestrador que gerencia o fluxo de streaming e a lógica de agentes.
+* **Vetorização:** Amazon Bedrock Knowledge Bases utilizando **Titan Text Embeddings v2.**
+* **Processamento:** **Claude 4.6 Sonnet** via Inference Profile para máxima disponibilidade.
 
 ---
 
@@ -34,6 +34,8 @@ O projeto utiliza uma esteira de dados serverless na AWS:
 |Linguagem	|Python 3.12+|
 |IA Foundation Model|	Anthropic Claude 4.6 Sonnet (Lançado em Fev/2026)|
 |Orquestração de IA|	Amazon Bedrock|
+|Backend Framework| FastAPI + Uvicorn (Streaming Engine)|
+|Frontend Framework|Streamlit|
 |Embeddings|	Amazon Titan Text Embeddings v2|
 |Cloud Infrastructure|	AWS (S3, IAM, OpenSearch)|
 |Interface de API|	Boto3 (AWS SDK for Python)|
@@ -67,30 +69,31 @@ KNOWLEDGE_BASE_ID=sua_chave
 Você pode rodar o Agente Titan de duas formas:
 
 ### **Opção A: Via Docker (Recomendado 🐳)**
-Ideal para garantir que todas as dependências funcionem sem conflitos no seu sistema.
+Esta opção sobe automaticamente o Backend e o Frontend em containers separados, já configurando a comunicação entre eles.
 ### Construir a imagem:
 ```bash
-docker build -t titan-agent .
+docker compose up --build
 ```
 ### Rodar o container:
 ```bash
 docker run -p 8501:8501 --env-file .env titan-agent
 ```
-Acesse em seu navegador: `http://localhost:8501`
+* Interface (UI): `http://localhost:8501`
+* API (Docs): `http://localhost:8000/docs`
 
-### **Opção B: Localmente (Streamlit)**
-Ideal para desenvolvimento e modificações rápidas.
+### **Opção B: Localmente (Desenvolvimento)**
+Se preferir rodar fora do Docker, você precisará de dois terminais:
 ### Ative seu ambiente virtual:
 ```bash
 source .venv/bin/activate  # Linux/Mac
 # ou
 .venv\Scripts\activate     # Windows
 ```
-### Instale as dependências:
+### Terminal 1 (Backend):
 ```bash
-pip install -r requirements.txt
+python src/api/main.py
 ```
-### Inicie a interface:
+### Terminal 2 (Frontend):
 ```bash
 streamlit run src/interface/app.py
 ```
