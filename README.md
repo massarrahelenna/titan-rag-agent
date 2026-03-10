@@ -60,7 +60,7 @@ pip install -r requirements.txt
 AWS_ACCESS_KEY_ID=sua_chave
 AWS_SECRET_ACCESS_KEY=seu_segredo
 AWS_REGION=us-east-1
-KNOWLEDGE_BASE_ID=V9Y857FLPG
+KNOWLEDGE_BASE_ID=sua_chave
 ```
 
 ### 📈 Resultados Identificados
