@@ -3,5 +3,7 @@ python-dotenv
 langchain-aws
 crewai
 pydantic
+streamlit
+pathlib
 
 # rodar pip install -r requirements.txt
