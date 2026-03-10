@@ -83,7 +83,7 @@ if prompt := st.chat_input("Pergunte algo sobre os documentos..."):
 
     with st.chat_message("assistant"):
         def get_api_stream():
-            url = f"http://localhost:8000/chat?prompt={prompt}"
+            url = f"http://backend:8000/chat?prompt={prompt}"
             try:
                 with requests.get(url, stream=True) as r:
                     r.raise_for_status()
