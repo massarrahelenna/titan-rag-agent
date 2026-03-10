@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-# 1. Localiza o .env
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / ".env")
 
@@ -25,7 +24,6 @@ def ask_titan_brain_stream(query):
             }
         )
 
-        # 🎯 O TRUQUE: Pegamos o stream e verificamos se ele existe
         stream = response.get('stream')
         
         if stream is not None:
@@ -38,14 +36,12 @@ def ask_titan_brain_stream(query):
     except Exception as e:
         yield f"❌ Erro na orquestração: {str(e)}"
 
-# BLOCO DE TESTE NO TERMINAL
 if __name__ == "__main__":
     print("🚀 Testando Agente Titan em modo Streaming...")
     pergunta = input("\nO que você deseja saber? ")
     
     if pergunta.strip():
         print("\nO agente responde: ", end="", flush=True)
-        # Como a função agora é um gerador (yield), precisamos de um loop aqui
         for pedaco in ask_titan_brain_stream(pergunta):
             print(pedaco, end="", flush=True)
         print("\n")

@@ -19,7 +19,7 @@ async def chat(prompt: str):
     Endpoint que recebe o prompt via HTTP e devolve um 
     StreamingResponse (o texto 'digitando' em tempo real).
     """
-    # Chamamos a função geradora que você já criou no ask_knowledge.py
+    
     return StreamingResponse(ask_titan_brain_stream(prompt), media_type="text/plain")
 
 if __name__ == "__main__":
