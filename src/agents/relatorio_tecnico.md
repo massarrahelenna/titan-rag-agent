@@ -1,5 +1,5 @@
-# 📊 Relatório de Análise Técnica - Agente Titan
-*Gerado em: 03/03/2026 22:59:54*
+#  Relatório de Análise Técnica - Agente Titan
+*Gerado em: 10/03/2026 10:26:27*
 
 --- 
 
@@ -7,77 +7,77 @@
 
 ## Análise das Metodologias Experimentais
 
-Com base nos fragmentos disponíveis nos resultados de busca, identifico as seguintes metodologias predominantes:
+Com base nos resultados de busca fornecidos, os documentos abordam principalmente pesquisas em **aprendizado robótico** e **avaliação de modelos de linguagem**. As 3 metodologias experimentais mais recorrentes identificadas são:
 
 ---
 
-### 1. 🤖 **Imitation Learning / Behavioral Cloning**
-- Evidenciado por referências como **BC-Z** (zero-shot imitation learning), **Mobile ALOHA** e **HYDRA**
-- Consiste em treinar políticas robóticas a partir de demonstrações humanas (*teleoperation*)
-- Variantes incluem **action chunking** e **semantic augmentation** (RoboAgent)
+### 1. 🤖 Imitation Learning / Aprendizado por Imitação
+- Presente em múltiplas referências (BC-Z, Mobile ALOHA, HYDRA, RoboAgent)
+- Envolve coleta de demonstrações via **teleoperation** e treinamento supervisionado
+- Variantes incluem: *action chunking*, *zero-shot generalization* e *one-shot learning*
 
 ---
 
-### 2. 📊 **Benchmarking com Datasets em Larga Escala**
-- Representado por **Bridge Data V2**, **RH20T**, **LIBERO**, **EPIC-Kitchens-100**
-- Metodologia de coleta padronizada de dados para avaliar generalização e transferência de habilidades
-- Foco em **diversidade de tarefas** e escalabilidade do aprendizado
+### 2. 📊 Benchmark & Avaliação em Larga Escala
+- Representado por conjuntos como **LIBERO**, **EPIC-Kitchens-100**, **BigGen Bench** e **Bridge Data v2**
+- Foco em medir **transferência de conhecimento**, generalização e desempenho em tarefas diversas
+- Inclui avaliação com modelos de linguagem como árbitros (*LLM-as-judge*)
 
 ---
 
-### 3. 🔬 **Active Learning / Avaliação Eficiente de Modelos**
-- Evidenciado por referências a **Active Testing** (Kossen et al.) e **BigGen Bench**
-- Uso de modelos de linguagem para avaliação granular (*fine-grained evaluation*)
-- Otimização de amostragem para reduzir custo computacional de avaliação
+### 3. 🔬 Active Learning / Aprendizado Ativo
+- Mencionado explicitamente via *Active Testing* (Kossen et al.) e experimentos tabulares
+- Objetivo: **eficiência amostral** na avaliação e treinamento de modelos
+- Aplicado tanto a LLMs quanto a robótica (melhoria autônoma de habilidades)
 
 ---
 
-### ⚠️ Limitação da Análise
-> Os fragmentos fornecidos são **seções de referências bibliográficas**, não metodologias descritas diretamente. Uma análise completa exigiria acesso ao corpo dos artigos.
+> ⚠️ **Limitação:** Os resultados de busca são predominantemente **listas de referências bibliográficas**, o que restringe uma análise metodológica mais profunda dos artigos completos.
 
-### 📚 Fontes S3 Consultadas:
+### Fontes S3 Consultadas:
 
 ---
 
 ## 2. Liste os principais benchmarks e datasets citados nos resultados.
 
-# Benchmarks e Datasets Identificados nos Resultados de Busca
+## Principais Benchmarks e Datasets Citados nos Resultados
 
-## 🔬 Benchmarks
+---
 
-| # | Nome | Domínio | Referência |
+### 📊 Benchmarks
+
+| # | Nome | Domínio | Descrição |
 |---|------|---------|-----------|
-| 1 | **SkillsBench** | Avaliação de habilidades de agentes de IA | arXiv:2602.12670 |
-| 2 | **Gecko2K (Gecko / GeckoS)** | Alinhamento texto-imagem (T2I) | Wiles et al., 2024 |
-| 3 | **BigGen Bench (BGB)** | Avaliação de LLMs (planejamento, uso de ferramentas, etc.) | Kim et al., 2025 |
-| 4 | **MT-Bench / Chatbot Arena** | Avaliação de LLMs como juízes | Zheng et al., 2023 |
-| 5 | **MetaWorld** | Manipulação robótica multi-tarefa (braço Sawyer) | Zhang et al. |
+| 1 | **SkillsBench** | IA / Agentes | Avalia habilidades de agentes em tarefas diversas |
+| 2 | **Gecko2K (Gecko)** | Geração de Imagem | Avaliação de alinhamento Text-to-Image (T2I); subconjunto Gecko(S) com ~1.000 prompts e ~18k anotações humanas |
+| 3 | **BigGen Bench (BGB)** | Modelos de Linguagem | Avalia outputs de LLMs com rubricas detalhadas; 695 instâncias, 77 tarefas, 9 capacidades (ex.: planejamento, uso de ferramentas) |
+| 4 | **MetaWorld** | Robótica | Benchmark multi-tarefa de manipulação simulada com braço Sawyer; 20 tarefas de treino, 17 de avaliação |
+| 5 | **MT-Bench / Chatbot Arena** | LLM-as-a-Judge | Avaliação de LLMs como juízes |
 
 ---
 
-## 📦 Datasets
+### 🗄️ Datasets
 
-| # | Nome | Modalidade / Domínio | Tamanho |
-|---|------|----------------------|---------|
-| 1 | **RBM-1M** | Robótica (21 embodiments distintos) | ~1.059.370 trajetórias |
-| 2 | **FAILSafe** | Robótica – Falhas (Franka Panda / ManiSkill) | 71.614 trajetórias |
-| 3 | **RACER Failure Dataset** | Robótica – Falhas (Franka Panda / RLBench) | 29.115 trajetórias |
-| 4 | **AutoEval Failed Trajectories** | Robótica – Falhas (WidowX250) | 8.677 trajetórias |
-| 5 | **LIBERO Failure Dataset** | Robótica – Falhas (Franka Panda, simulação) | 1.473 trajetórias |
-| 6 | **Fino-Net Paired Failure** | Robótica – Falhas (Baxter) | 229 trajetórias |
-| 7 | **Epic-Kitchens** | Visão computacional – Humanos | 37.030 amostras |
-| 8 | **Wikipedia, C4, Pile, RefinedWeb, Cosmopedia, FineWeb, FineWeb-Edu** | Texto / Pré-treino de LLMs | Não especificado |
+| # | Nome | Tipo | Volume |
+|---|------|------|--------|
+| 1 | **RBM-1M** | Robótica (trajetórias) | ~1.059.370 trajetórias / 21 embodiments distintos |
+| 2 | **FAILSafe** | Falhas robóticas (Franka Panda / ManiSkill) | 71.614 trajetórias |
+| 3 | **RACER Failure Dataset** | Falhas robóticas (Franka Panda / RLBench) | 29.115 trajetórias |
+| 4 | **AutoEval Failed Trajectories** | Falhas robóticas (WidowX250) | 8.677 trajetórias |
+| 5 | **LIBERO Failure Dataset** | Falhas robóticas (Franka Panda, simulação) | 1.473 trajetórias |
+| 6 | **Fino-Net Paired Failure (Baxter)** | Falhas robóticas (Baxter) | 229 trajetórias |
+| 7 | **Epic-Kitchens** | Humano (ações em cozinha) | 37.030 trajetórias |
+| 8 | **Wikipedia, C4, Pile, RefinedWeb, Cosmopedia, FineWeb, FineWeb-Edu** | Texto (pré-treino de LLMs) | 7 datasets para análise de escalonamento |
 
 ---
 
-## 📌 Observações Técnicas
+### 🔑 Observações Técnicas
 
-- O **RBM-EVAL-ID** é citado como conjunto de avaliação in-distribution para MetaWorld (17 tarefas).
-- O **Gecko(S)** contém ~**18k anotações humanas pareadas** envolvendo 4 modelos T2I.
-- O **BigGen Bench** cobre **695 instâncias / 77 tarefas / 9 capacidades** avaliadas em inglês.
-- Os datasets de robótica compõem o pipeline de treinamento do modelo **RBM-1M**, com foco em trajetórias de falha (*failure trajectories*).
+- O dataset **RBM-1M** agrega múltiplas fontes, incluindo dados de falha e sucesso de 21 embodiments robóticos distintos.
+- O **Gecko(S)** utiliza método hierárquico semi-automático para garantir cobertura diversificada de habilidades finas.
+- O **BigGen Bench** mapeia escala original 1–5 para 0–4, focando em anotações humanas em inglês.
 
-### 📚 Fontes S3 Consultadas:
+### Fontes S3 Consultadas:
 
 ---
 
@@ -85,49 +85,56 @@ Com base nos fragmentos disponíveis nos resultados de busca, identifico as segu
 
 ## Lacunas e Direções de Trabalho Futuro Identificadas
 
-Com base nos resultados de busca disponíveis, os autores (predominantemente da **Source 1 e 2**, relacionados à análise teórica do otimizador Adam) mencionam as seguintes lacunas e direções futuras:
+Com base nos resultados de busca fornecidos, os autores (primariamente do contexto teórico sobre o otimizador **Adam**) mencionam as seguintes lacunas e direções futuras:
 
 ---
 
-### 1. **Caracterização Precisa da Fronteira Crítica de Convergência**
-> *"We have not fully determined the precise number and the shape of the boundar(-ies)"*
+### 1. 📐 Caracterização Precisa da Fronteira Crítica de Convergência
+> *"We have not fully determined the precise number and the shape of the boundar(-ies)."*
 
-- Embora os autores demonstrem a **existência** de pelo menos uma fronteira crítica (β\*₁, β\*₂) que demarca a transição de fase di-convergência/convergência, a **forma exata e o número preciso** dessas fronteiras permanecem indeterminados.
-- Deixado explicitamente como **direção futura**.
-
----
-
-### 2. **Comparação Adam vs. SGD**
-> *"Identifying when and why Adam converges faster serves as an independent research topic"*
-
-- A questão de **quando e por que Adam converge mais rápido que SGD** não é abordada no trabalho, sendo reconhecida como tópico independente e relevante.
+- **Lacuna:** A fronteira crítica (β₁*, β₂*) que demarca a transição de fase divergência/convergência foi apenas **detectada em sua existência**, mas não totalmente caracterizada.
+- **Trabalho Futuro:** Determinar com precisão o número e o formato geométrico dessa(s) fronteira(s).
 
 ---
 
-### 3. **Condições de Lipschitz Generalizadas**
-- Os autores apontam que trabalhos recentes relaxam a condição padrão de Lipschitz para **condições generalizadas**, sugerindo que a extensão da teoria para esses cenários é uma lacuna a ser explorada.
+### 2. ⚡ Comparação Adam vs. SGD
+> *"Identifying when and why Adam converges faster serves as an independent research topic."*
+
+- **Lacuna:** O trabalho foca apenas na convergência fundamental, **sem estabelecer as vantagens comparativas** do Adam sobre SGD.
+- **Trabalho Futuro:** Investigar quando e por que o Adam converge mais rápido que o SGD.
 
 ---
 
-### 4. **Convergência para Vizinhança de Pontos Críticos (D₀ > 0)**
-- Quando há ruído não-realizável (D₀ > 0), Adam converge para uma **vizinhança** de pontos críticos, não para pontos exatos. Os autores reconhecem que uma análise mais refinada desse comportamento merece investigação adicional.
+### 3. 📏 Condições de Lipschitz Generalizadas
+> *"A recent line of theoretical work relaxes the standard Lipschitz condition..."*
+
+- **Lacuna:** A análise atual depende de condições de Lipschitz **padrão (Assumption 2.1)**, que podem ser restritivas.
+- **Trabalho Futuro:** Estender a teoria para **condições de Lipschitz generalizadas**, como as propostas por Zhang et al. [2019], Li et al. [2023] e Wang et al. [2024].
 
 ---
 
-### Síntese Estruturada
+### 4. 🎯 Convergência a Vizinhança vs. Pontos Críticos Exatos
+> *"When D₀ > 0, Adam converges to a neighborhood of critical points, in lieu of exact critical points."*
 
-| # | Lacuna/Future Work | Natureza |
-|---|---|---|
-| 1 | Forma/número exato das fronteiras críticas (β₁, β₂) | Teórica |
-| 2 | Vantagem de Adam sobre SGD | Comparativa/Empírica |
-| 3 | Extensão para condições de Lipschitz generalizadas | Teórica |
-| 4 | Convergência exata vs. vizinhança com ruído não-realizável | Teórica/Prática |
+- **Lacuna (observação técnica):** Adam **não atinge exatamente** o gradiente zero em cenários não realizáveis (D₀ > 0), mesmo com stepsize decrescente.
+- **Implicação Futura:** Análise mais refinada para condições em que convergência exata seja possível.
 
 ---
 
-> **Nota:** Os demais resultados de busca (Sources 3, 4, 5) não apresentam seções de *future work* identificáveis no contexto fornecido.
+## Resumo Estruturado
 
-### 📚 Fontes S3 Consultadas:
+| # | Lacuna | Natureza |
+|---|--------|----------|
+| 1 | Forma exata da fronteira crítica (β₁, β₂) | Teórica/Empírica |
+| 2 | Vantagem do Adam sobre SGD | Comparativa |
+| 3 | Extensão para Lipschitz generalizado | Teórica |
+| 4 | Convergência exata vs. vizinhança | Teórica |
+
+---
+
+**Nota:** Os demais resultados de busca (fontes 3, 4 e 5) referem-se a domínios distintos (robótica, física computacional e detecção de anomalias) e **não apresentam declarações explícitas de lacunas ou trabalhos futuros** relevantes à pergunta.
+
+### Fontes S3 Consultadas:
 
 ---
 
@@ -139,36 +146,39 @@ Com base nos resultados de busca disponíveis, os autores (predominantemente da 
 
 ### 📊 Métricas Utilizadas nos Estudos
 
-Com base nos resultados identificados nas fontes, as seguintes métricas de avaliação foram empregadas:
+Com base nos resultados apresentados, as métricas de avaliação empregadas seguem padrões consolidados na literatura:
 
 ---
 
 ### 1. **Classificação Multiclasse**
-| Métrica | Abordagem |
-|---|---|
-| **Accuracy** | Total de predições corretas / total de amostras |
-| **Precision (Macro)** | Média aritmética da precisão por classe |
-| **Recall (Macro)** | Média aritmética da revocação por classe |
-| **F1-Score (Macro)** | Média harmônica entre Precision e Recall por classe |
+| Métrica | Abordagem | Observação |
+|--------|-----------|------------|
+| **Accuracy** | Global (total de acertos / total de amostras) | Não considera desequilíbrio de classes |
+| **Precision (Macro)** | Média entre classes | Peso igual por classe |
+| **Recall (Macro)** | Média entre classes | Peso igual por classe |
+| **F1-Score (Macro)** | Média harmônica entre Precision e Recall | Balanceia falsos positivos e negativos |
 
 ---
 
 ### 2. **Raciocínio de Senso Comum (Benchmarks)**
-Resultados reportados em **7 benchmarks**:
-- ARC-E, ARC-C, OpenBookQA, BoolQ, HellaSwag, entre outros
-- **Melhor resultado SOTA (MLRA-4):** scores competitivos em múltiplos benchmarks, com destaque nos valores mínimos de perda
+Os melhores resultados (**MLRA-4**) nos benchmarks downstream foram:
+- **ARC-E / ARC-C / OpenBookQA / BoolQ / HellaSwag** — com valores destacados em **negrito** indicando Top-2 entre todos os métodos avaliados
+- MLRA-4 apresentou os **menores erros** nas métricas reportadas (ex: 14.407, 8.937, 13.672)
 
 ---
 
-### 3. **Configuração Experimental Ótima**
-- **k = 8 checkpoints** para weight averaging demonstrou o melhor equilíbrio entre estabilidade e diversidade, superando k menores (alta variância) e k maiores (sem ganho adicional)
+### 3. **Otimização por Model Soup (Weight Averaging)**
+- Uso de **k=8 checkpoints** demonstrou o melhor equilíbrio entre:
+  - ✅ Estabilidade no conjunto de validação/teste
+  - ✅ Diversidade de snapshots
+  - ✅ Eficiência computacional e de armazenamento
 
 ---
 
 ### ⚠️ Limitação
-> Os valores numéricos absolutos de SOTA não foram completamente disponibilizados nos trechos indexados. Para métricas precisas, recomenda-se consulta direta às tabelas completas dos papers referenciados.
+Os resultados numéricos absolutos (ex: acurácia final em %) **não foram completamente expostos** nos trechos disponíveis. Para valores SOTA precisos, recomenda-se consultar as tabelas completas dos artigos de origem.
 
-### 📚 Fontes S3 Consultadas:
+### Fontes S3 Consultadas:
 
 ---
 
@@ -178,84 +188,106 @@ Resultados reportados em **7 benchmarks**:
 
 ## Limitação Metodológica Preliminar
 
-> ⚠️ **Nota técnica importante:** Os resultados de busca fornecidos contêm apenas **fragmentos de 5 fontes distintas** (referências bibliográficas parciais), e não 50 documentos completos. Uma síntese rigorosa do estado da arte exige acesso ao conteúdo integral dos trabalhos. A conclusão abaixo é construída com base no que foi efetivamente disponibilizado.
+> ⚠️ **Nota Técnica:** Os resultados de busca fornecidos contêm apenas **fragmentos de 5 referências bibliográficas**, não 50 documentos completos. A síntese abaixo será estruturada com base no conteúdo efetivamente disponível, com inferências técnicas explicitamente sinalizadas.
 
 ---
 
-## Síntese do Estado da Arte com Base no Corpus Disponível
+## 1. Panorama Geral das Áreas Cobertas
 
-### 1. Aprendizado por Imitação e Robótica Manipulação
+Com base nos fragmentos recuperados, identificam-se **quatro eixos temáticos principais**:
 
-Os documentos indicam uma **convergência significativa** entre aprendizado por imitação (*imitation learning*) e robótica de manipulação. Trabalhos como *Mobile ALOHA* (Fu et al., 2024), *LIBERO* (Liu et al., 2023) e *RH20T* (Fang et al., 2023) evidenciam uma tendência clara:
-
-- Construção de **datasets massivos e diversificados** para generalização de habilidades robóticas;
-- Adoção de **teleoperation de baixo custo** como paradigma de coleta de dados;
-- Foco crescente em **manipulação bimanual** e tarefas de longo horizonte (*long-horizon tasks*);
-- Transição de políticas especializadas para **políticas generalistas** treinadas em dados heterogêneos.
-
----
-
-### 2. Modelos de Linguagem e Visão de Grande Escala (LVLMs)
-
-A literatura referenciada aponta para uma **maturação acelerada** dos modelos multimodais:
-
-- **Qwen3** (2025) e **MedGemma** (2025) representam a fronteira dos modelos de linguagem-visão aplicados a domínios especializados, incluindo imagem médica;
-- O trabalho de Shui et al. (ICLR 2025) sobre pré-treinamento *vision-language* em larga escala para imagens CT demonstra a **especialização vertical** dos LVLMs;
-- **CLIP** (Radford et al., 2021) permanece como backbone fundamental, sendo continuamente adaptado para domínios específicos;
-- A escassez de radiologistas (*Rimmer, BMJ 2017*) confere urgência à aplicação clínica desses modelos.
+| Eixo | Domínio | Referências Identificadas |
+|------|---------|--------------------------|
+| **A** | Otimização com restrições + Aprendizado de máquina | Kotary et al. (2021), Liao & Poggio (2026) |
+| **B** | Visão computacional médica / multimodal | MedGemma (2025), Qwen3 (2025), Shui et al. (2025) |
+| **C** | Aprendizado por imitação em robótica | Fu et al. (2024), Radosavovic et al. (2022), Liu et al. (2023) |
+| **D** | Aprendizado por reforço / exploração | Machado et al. (2020), Matthews et al. (2024) |
 
 ---
 
-### 3. Raciocínio Abstrato e Arquiteturas Neurais
+## 2. Síntese por Eixo Temático
 
-Os trabalhos de Li et al. (2024) e Liao & Poggio (2026) sinalizam uma fronteira emergente:
+### 2.1 Raciocínio Abstrato e Otimização End-to-End
 
-- **Combinação de indução e transdução** para raciocínio abstrato (*Li et al., arXiv:2411.02272*);
-- **Modelos recursivos simplificados** com skip connections para raciocínio em cadeia (*Liao & Poggio, 2026*) — sugerindo que arquiteturas mais simples podem superar transformers complexos em tarefas de raciocínio estruturado;
-- A área de **End-to-End Constrained Optimization Learning** (*Kotary et al., 2021*) permanece relevante para integração entre aprendizado e restrições combinatórias.
+O estado da arte demonstra **convergência entre raciocínio simbólico e aprendizado profundo**:
 
----
+- **Kotary et al. (2021)** consolidam o paradigma de *end-to-end constrained optimization learning*, onde restrições do domínio são integradas diretamente ao pipeline de treinamento, eliminando a dicotomia clássica entre solver e modelo preditivo
+- **Li et al. (2024)** avançam na combinação de **indução e transdução** para raciocínio abstrato, sugerindo que arquiteturas híbridas superam abordagens puramente conexionistas em tarefas de generalização estrutural
+- **Liao & Poggio (2026)** propõem modelos recursivos simplificados com *skip connections*, indicando uma tendência de **redução de complexidade arquitetural** sem sacrifício de capacidade representacional
+- **Lee et al. (2019)** estabeleceram com o *Set Transformer* um framework de referência para redes invariantes à permutação, ainda amplamente utilizado como baseline
 
-### 4. Aprendizado por Reforço e Exploração
-
-O corpus referencia avanços em:
-
-- **Exploração baseada em contagem** com representações sucessoras (*Machado et al., 2020*);
-- Benchmarks de RL aberto como **CraftaX** (*Matthews et al., ICML 2024*), sinalizando necessidade de ambientes mais ricos para avaliar generalização;
-- **Negative sampling e NCE** (*Ma & Collins, EMNLP 2018*) como ferramentas consolidadas para modelos condicionais eficientes.
+**Tendência central:** Sistemas híbridos indutivo-transdutivos com raciocínio estruturado emergem como paradigma dominante para tarefas de raciocínio de ordem superior.
 
 ---
 
-### 5. Arquiteturas de Atenção e Invariância
+### 2.2 Modelos de Linguagem Visual e Diagnóstico Médico
 
-O **Set Transformer** (*Lee et al., ICML 2019*) permanece referência para:
+A fronteira técnica em visão-linguagem para medicina apresenta **aceleração significativa**:
 
-- Redes neurais **invariantes à permutação**;
-- Processamento de conjuntos sem ordenação definida — diretamente aplicável a robótica, point clouds e raciocínio relacional.
+- **MedGemma (2025)** e **Qwen3 (2025)** representam a nova geração de *Large Vision-Language Models* (LVLMs) especializados, com capacidade de interpretação de imagens médicas em escala clínica
+- **Shui et al. (2025)** demonstram que pré-treinamento *large-scale e fine-grained* em imagens de TC (tomografia computadorizada) produz representações superiores, com ganhos mensuráveis em tarefas downstream de diagnóstico
+- **Radford et al. (2021)** — via CLIP — permanecem como fundamento arquitetural para supervisão por linguagem natural em visão, com derivações diretas nos modelos médicos posteriores
+- O alerta de **Rimmer (2017)** sobre escassez de radiologistas motiva tecnicamente a urgência dos sistemas automatizados de análise de imagem
 
----
-
-## Tendências Transversais Identificadas
-
-| Dimensão | Tendência Predominante |
-|---|---|
-| **Dados** | Datasets maiores, multimodais, multi-domínio |
-| **Arquiteturas** | Transformers + mecanismos recursivos/híbridos |
-| **Aplicações** | Robótica generalista, medicina, raciocínio simbólico |
-| **Treinamento** | Pré-treinamento massivo + fine-tuning especializado |
-| **Avaliação** | Benchmarks mais abertos e ecologicamente válidos |
+**Tendência central:** LVLMs especializados com pré-treinamento em domínio específico (médico) superam modelos generalistas, com impacto direto na triagem e diagnóstico assistido por IA.
 
 ---
 
-## Conclusão Geral
+### 2.3 Aprendizado por Imitação e Manipulação Robótica
 
-O estado da arte atual configura um **ecossistema de alta integração** entre grandes modelos de linguagem-visão, aprendizado por reforço, robótica de manipulação e raciocínio abstrato. A fronteira de pesquisa desloca-se da **especialização estreita** para **generalização robusta**, mediada por dados em escala, arquiteturas híbridas e benchmarks mais exigentes. A aplicação em domínios críticos como medicina e robótica industrial consolida-se como vetor central de validação científica e impacto prático.
+A robótica de manipulação apresenta **maturação de benchmarks e transferência de conhecimento**:
+
+- **LIBERO (Liu et al., 2023)** estabelece infraestrutura padronizada para avaliação de *knowledge transfer* em aprendizado robótico ao longo da vida (*lifelong learning*)
+- **Mobile ALOHA (Fu et al., 2024)** avança na manipulação bimanual móvel com teleoperation de baixo custo, democratizando a coleta de dados de demonstração
+- **RH20T (Fang et al., 2023)** e **EPIC-Kitchens-100** consolidam datasets de larga escala para aprendizado de habilidades diversas, com pipeline de anotação sistemático
+- **HYDRA (2023)** introduz ações híbridas (discretas + contínuas) para imitation learning, abordando o gap entre espaços de ação heterogêneos
+- **Radosavovic et al. (2022)** demonstram eficácia de pré-treinamento visual mascarado (*masked visual pre-training*) transferido para políticas de robôs reais
+
+**Tendência central:** O campo converge para arquiteturas de **foundation models para robótica**, com pré-treinamento em dados multimodais massivos e fine-tuning eficiente para tarefas específicas.
 
 ---
 
-> 📌 **Recomendação:** Para uma síntese mais precisa e exaustiva dos 50 documentos mencionados, é necessário fornecer o conteúdo completo ou os resumos estruturados de cada trabalho.
+### 2.4 Aprendizado por Reforço e Exploração
 
-### 📚 Fontes S3 Consultadas:
+- **Machado et al. (2020)** reafirmam a *successor representation* como mecanismo eficiente para exploração baseada em contagem, com fundamentos neurobiológicos
+- **Martin et al. (2017)** estendem a exploração baseada em contagem para espaços de features de alta dimensionalidade, viabilizando aplicação em ambientes complexos
+- **Matthews et al. (2024)** introduzem **CraftAX** como benchmark de referência para RL de fim aberto (*open-ended RL*), com execução computacionalmente eficiente
+- **Ma & Collins (2018)** formalizam a consistência estatística de *Noise Contrastive Estimation* em modelos condicionais, com implicações para treinamento de políticas baseadas em linguagem
+
+**Tendência central:** RL moderno integra **exploração estruturada, benchmarks padronizados e modelos de linguagem**, com crescente ênfase em agentes abertos e generalistas.
+
+---
+
+## 3. Convergências Transversais
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│           CONVERGÊNCIAS IDENTIFICADAS NO ESTADO DA ARTE      │
+├─────────────────────────────────────────────────────────────┤
+│  1. Foundation Models como backbone universal               │
+│     └─ Visão, linguagem, robótica e raciocínio              │
+│                                                             │
+│  2. Dados em escala + fine-tuning eficiente                 │
+│     └─ Substituindo arquiteturas task-specific              │
+│                                                             │
+│  3. Benchmarks padronizados e reprodutíveis                 │
+│     └─ CraftAX, LIBERO, EPIC-Kitchens como referências      │
+│                                                             │
+│  4. Integração simbólico-subsimbólica                       │
+│     └─ Otimização com restrições + redes neurais            │
+│                                                             │
+│  5. Aplicações de alto impacto social                       │
+│     └─ Diagnóstico médico, robótica assistiva               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 4. Lacunas e Direções Futuras
+
+Com base nos padrões emergentes, identificam-se as seguintes **lacunas técnicas abertas**:
+
+### Fontes S3 Consultadas:
 
 ---
 
