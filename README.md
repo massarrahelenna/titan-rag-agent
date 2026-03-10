@@ -110,3 +110,14 @@ O sistema agora possui um pipeline automatizado para novos documentos:
 * **S3 Storage:** O arquivo é salvo no prefixo raw_documents/ do seu bucket.
 * **Auto-Sync:** O código dispara o start_ingestion_job no Amazon Bedrock.
 * **Knowledge Update:** Em instantes, o Claude 4.6 já consegue responder sobre o novo conteúdo.
+
+### 📂 Estrutura de Pastas
+
+```text
+titan/
+├── src/
+│   ├── api/            # Servidor FastAPI (Streaming)
+│   ├── interface/      # UI Streamlit
+│   └── agents/         # Lógica de conexão AWS Bedrock
+├── requirements.txt    # Bibliotecas (boto3, fastapi, streamlit...)
+└── docker-compose.yml  # Orquestração dos serviços
