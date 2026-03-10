@@ -5,5 +5,8 @@ crewai
 pydantic
 streamlit
 pathlib
+fastapi
+uvicorn
+python-multipart
 
 # rodar pip install -r requirements.txt
