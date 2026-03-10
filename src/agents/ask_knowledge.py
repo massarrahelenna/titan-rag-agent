@@ -11,7 +11,7 @@ print("Agente Titan (Claude 4.6)...")
 
 client = boto3.client('bedrock-agent-runtime', region_name='us-east-1')
 
-def ask_titan_brain(query):
+def ask_titan_brain_stream(query):
     # ID da sua Knowledge Base
     kb_id = "V9Y857FLPG" 
     
@@ -48,9 +48,11 @@ def ask_titan_brain(query):
                 }
             }
         )
-        return response['output']['text']
+        for event in response.get('stream'):
+            if 'output' in event:
+                yield event['output']['text']
     except Exception as e:
-        return f"Erro na API: {str(e)}"
+        yield f"Erro na orquestração: {str(e)}"
 
 # ESTE BLOCO É O QUE FAZ O SCRIPT "FALAR" NO TERMINAL
 if __name__ == "__main__":

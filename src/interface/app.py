@@ -3,6 +3,7 @@ import boto3
 import sys
 import os
 import time
+import requests
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -18,10 +19,11 @@ ROOT = FILE.parents[1]
 if str(ROOT / "agents") not in sys.path:
     sys.path.append(str(ROOT / "agents"))
 
-from ask_knowledge import ask_titan_brain
+from ask_knowledge import ask_titan_brain_stream
+
 
 def upload_to_s3(file_obj, bucket, s3_path):
-    """Envia o arquivo para o S3""" #Enviar arquivo para o S3
+    """Envia o arquivo para o S3"""
     try:
         s3_client.upload_fileobj(file_obj, bucket, s3_path)
         return True
@@ -30,7 +32,7 @@ def upload_to_s3(file_obj, bucket, s3_path):
         return False
 
 def sync_knowledge_base(kb_id, ds_id):
-    """Garante que a IA 'leia' o novo arquivo""" #Inicia o processo de ingestão no Bedrock para atualizar a base de conhecimento
+    """Inicia o processo de ingestão no Bedrock"""
     try:
         bedrock_agent.start_ingestion_job(
             knowledgeBaseId=kb_id,
@@ -52,22 +54,19 @@ with st.sidebar:
     if uploaded_file is not None:
         if st.button("Enviar e Sincronizar"):
             with st.spinner("Vetorizando documento..."):
-            
                 bucket_name = "titan-knowledge-massarra-29863"
                 caminho_no_s3 = f"raw_documents/{uploaded_file.name}"
-            
-            #Upload para a pasta correta
-                success_s3 = upload_to_s3(uploaded_file, bucket_name, caminho_no_s3)
-            
-                if success_s3:
-                    st.success(f"✅ Arquivo salvo em: {caminho_no_s3}")
                 
-                #Sincroniza apenas UMA vez
+                # Realiza o upload
+                if upload_to_s3(uploaded_file, bucket_name, caminho_no_s3):
+                    st.success(f"✅ Arquivo salvo em: {caminho_no_s3}")
+                    
                     ds_id = "ARSVWAGKQT" 
                     kb_id = "V9Y857FLPG"
-                
+                    
+                    # Sincroniza a base de conhecimento
                     if sync_knowledge_base(kb_id, ds_id):
-                        st.info("🔄 Sincronização iniciada! A IA está lendo o novo arquivo...")
+                        st.info("🔄 Sincronização iniciada no Bedrock!")
 
 # INTERFACE CHAT
 if "messages" not in st.session_state:
@@ -83,6 +82,18 @@ if prompt := st.chat_input("Pergunte algo sobre os documentos..."):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        response = ask_titan_brain(prompt)
-        st.markdown(response)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        def get_api_stream():
+            url = f"http://localhost:8000/chat?prompt={prompt}"
+            try:
+                with requests.get(url, stream=True) as r:
+                    r.raise_for_status()
+                    for chunk in r.iter_content(chunk_size=None, decode_unicode=True):
+                        if chunk:
+                            yield chunk
+            except Exception as e:
+                yield f"❌ Erro de conexão com a API: {e}"
+                    
+       
+        full_response = st.write_stream(get_api_stream())
+        
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
