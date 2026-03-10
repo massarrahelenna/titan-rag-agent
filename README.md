@@ -43,7 +43,7 @@ O projeto utiliza uma esteira de dados serverless na AWS para garantir escalabil
 
 **Pré-requisitos**
 * Conta AWS com acesso ao Amazon Bedrock e Claude 4.6 habilitado.
-* Python instalado e ambiente virtual configurado.
+* Docker instalado (para execução via container) ou Python 3.12+.
 
 **Instalação**
 ### 1. Clonar o Repositório
@@ -55,12 +55,43 @@ cd titan
 ```bash
 pip install -r requirements.txt
 ```
-### Configure suas variáveis de ambiente no arquivo `.env`:
+### 3. Configure suas variáveis de ambiente no arquivo `.env`:
 ```bash
 AWS_ACCESS_KEY_ID=sua_chave
 AWS_SECRET_ACCESS_KEY=seu_segredo
 AWS_REGION=us-east-1
 KNOWLEDGE_BASE_ID=sua_chave
+```
+## 🚀 Como Executar
+Você pode rodar o Agente Titan de duas formas:
+
+**Opção A: Via Docker (Recomendado 🐳)**
+Ideal para garantir que todas as dependências funcionem sem conflitos no seu sistema.
+### Construir a imagem:
+```bash
+docker build -t titan-agent .
+```
+### Rodar o container:
+```bash
+docker run -p 8501:8501 --env-file .env titan-agent
+```
+Acesse em seu navegador: `http://localhost:8501`
+
+**Opção B: Localmente (Streamlit)**
+Ideal para desenvolvimento e modificações rápidas.
+### Ative seu ambiente virtual:
+```bash
+source .venv/bin/activate  # Linux/Mac
+# ou
+.venv\Scripts\activate     # Windows
+```
+### Instale as dependências:
+```bash
+pip install -r requirements.txt
+```
+### Inicie a interface:
+```bash
+streamlit run src/interface/app.py
 ```
 
 ### 📈 Resultados Identificados
@@ -68,3 +99,10 @@ Em testes iniciais com a base de dados atual, o agente identificou com sucesso o
 * **Robótica Embodied:** Evolução de políticas para robôs humanoides.
 * **LLM-as-a-Judge:** Automação da avaliação de modelos através de orquestração.
 * **Benchmarking Eficiente:** Novas métricas para avaliação de performance em larga escala.
+
+### 📂 Fluxo de Upload e Ingestão
+O sistema agora possui um pipeline automatizado para novos documentos:
+* **Upload:** O usuário sobe um PDF via Streamlit.
+* **S3 Storage:** O arquivo é salvo no prefixo raw_documents/ do seu bucket.
+* **Auto-Sync:** O código dispara o start_ingestion_job no Amazon Bedrock.
+* **Knowledge Update:** Em instantes, o Claude 4.6 já consegue responder sobre o novo conteúdo.
