@@ -3,19 +3,25 @@ import boto3
 import sys
 import os
 import time
+from dotenv import load_dotenv
 from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+load_dotenv(BASE_DIR / ".env")
+aws_region = os.getenv("AWS_REGION", "us-east-1")
+
+s3_client = boto3.client('s3', region_name=aws_region)
+bedrock_agent = boto3.client('bedrock-agent', region_name=aws_region)
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[1]
-sys.path.append(str(ROOT / "agents"))
+if str(ROOT / "agents") not in sys.path:
+    sys.path.append(str(ROOT / "agents"))
 
 from ask_knowledge import ask_titan_brain
 
-s3_client = boto3.client('s3')
-bedrock_agent = boto3.client('bedrock-agent') # Cliente para gerenciar a KB
-
 def upload_to_s3(file_obj, bucket, s3_path):
-    """Envia o arquivo para o S3"""
+    """Envia o arquivo para o S3""" #Enviar arquivo para o S3
     try:
         s3_client.upload_fileobj(file_obj, bucket, s3_path)
         return True
@@ -24,7 +30,7 @@ def upload_to_s3(file_obj, bucket, s3_path):
         return False
 
 def sync_knowledge_base(kb_id, ds_id):
-    """Garante que a IA 'leia' o novo arquivo"""
+    """Garante que a IA 'leia' o novo arquivo""" #Inicia o processo de ingestão no Bedrock para atualizar a base de conhecimento
     try:
         bedrock_agent.start_ingestion_job(
             knowledgeBaseId=kb_id,
@@ -35,25 +41,48 @@ def sync_knowledge_base(kb_id, ds_id):
         st.error(f"Erro na sincronização: {e}")
         return False
 
-# --- INTERFACE STREAMLIT ---
+# INTERFACE UPLOAD
+st.set_page_config(page_title="Titan Agent 4.6", page_icon="🤖")
+st.title("🤖 Agente Titan - Claude 4.6")
+
 with st.sidebar:
-    st.header("📤 Upload de Documentos")
-    uploaded_file = st.file_uploader("Escolha um PDF técnico", type="pdf")
+    st.header("📤 Gestão de Dados")
+    uploaded_file = st.file_uploader("Upload de PDF", type="pdf")
     
     if uploaded_file is not None:
-        if st.button("🚀 Enviar e Sincronizar"):
-            with st.spinner("Enviando para o Titan Brain..."):
-                # 1. Upload para o S3
-                bucket_name = "titan-knowledge"
-                success_s3 = upload_to_s3(uploaded_file, bucket_name, uploaded_file.name)
-                
+        if st.button("Enviar e Sincronizar"):
+            with st.spinner("Vetorizando documento..."):
+            
+                bucket_name = "titan-knowledge-massarra-29863"
+                caminho_no_s3 = f"raw_documents/{uploaded_file.name}"
+            
+            #Upload para a pasta correta
+                success_s3 = upload_to_s3(uploaded_file, bucket_name, caminho_no_s3)
+            
                 if success_s3:
-                    st.success(f"Arquivo {uploaded_file.name} salvo no S3!")
-                    
-                    # 2. Sincronizar Knowledge Base
-                    # Substitua pelo seu Data Source ID (visto na image_4590c2.png)
+                    st.success(f"✅ Arquivo salvo em: {caminho_no_s3}")
+                
+                #Sincroniza apenas UMA vez
                     ds_id = "ARSVWAGKQT" 
                     kb_id = "V9Y857FLPG"
-                    
+                
                     if sync_knowledge_base(kb_id, ds_id):
-                        st.warning("🔄 Sincronização iniciada. A IA estará atualizada em instantes!")
+                        st.info("🔄 Sincronização iniciada! A IA está lendo o novo arquivo...")
+
+# INTERFACE CHAT
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+if prompt := st.chat_input("Pergunte algo sobre os documentos..."):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    with st.chat_message("assistant"):
+        response = ask_titan_brain(prompt)
+        st.markdown(response)
+        st.session_state.messages.append({"role": "assistant", "content": response})
