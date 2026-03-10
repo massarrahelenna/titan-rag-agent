@@ -65,7 +65,7 @@ KNOWLEDGE_BASE_ID=sua_chave
 ## 🚀 Como Executar
 Você pode rodar o Agente Titan de duas formas:
 
-**Opção A: Via Docker (Recomendado 🐳)**
+### **Opção A: Via Docker (Recomendado 🐳)**
 Ideal para garantir que todas as dependências funcionem sem conflitos no seu sistema.
 ### Construir a imagem:
 ```bash
@@ -77,7 +77,7 @@ docker run -p 8501:8501 --env-file .env titan-agent
 ```
 Acesse em seu navegador: `http://localhost:8501`
 
-**Opção B: Localmente (Streamlit)**
+### **Opção B: Localmente (Streamlit)**
 Ideal para desenvolvimento e modificações rápidas.
 ### Ative seu ambiente virtual:
 ```bash
