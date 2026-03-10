@@ -19,11 +19,12 @@ Este agente não apenas responde perguntas; ele atua como um Pesquisador Sênior
 
 ## 🏗️ Arquitetura do Sistema
 
-O projeto utiliza uma esteira de dados serverless na AWS para garantir escalabilidade e baixo custo:
-* **Ingestão:** Scripts em Python monitoram e enviam documentos para o Amazon S3.
-* **Vetorização:** O **Amazon Bedrock Knowledge Bases** utiliza o modelo **Titan Text Embeddings v2** para converter texto em vetores semânticos.
-* **Armazenamento:** Os vetores são indexados em um banco de dados **Vector Store** (OpenSearch Serverless).
-* **Orquestração & Inferência::** O **Claude 4.6 Sonnet** processa as consultas através de um **Inference Profile** cross-region para máxima disponibilidade.
+O projeto utiliza uma esteira de dados serverless na AWS:
+
+* Frontend (Streamlit): Interface de usuário para chat e upload de arquivos.
+* Backend (FastAPI): Orquestrador que gerencia o fluxo de streaming e a lógica de agentes.
+* Vetorização: Amazon Bedrock Knowledge Bases utilizando Titan Text Embeddings v2.
+* Processamento: Claude 4.6 Sonnet via Inference Profile para máxima disponibilidade.
 
 ---
 
@@ -43,7 +44,7 @@ O projeto utiliza uma esteira de dados serverless na AWS para garantir escalabil
 
 **Pré-requisitos**
 * Conta AWS com acesso ao Amazon Bedrock e Claude 4.6 habilitado.
-* Docker instalado (para execução via container) ou Python 3.12+.
+* Docker e Docker Compose instalados (com integração WSL2 ativa).
 
 **Instalação**
 ### 1. Clonar o Repositório
