@@ -82,6 +82,12 @@ if prompt := st.chat_input("Pergunte algo sobre os documentos..."):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
+        # 1. Criamos um container vazio para o texto "digitando"
+        container = st.empty()
+        full_content = ""
+        actual_text = ""
+        sources_raw = ""
+
         def get_api_stream():
             url = f"http://backend:8000/chat?prompt={prompt}"
             try:
@@ -92,8 +98,35 @@ if prompt := st.chat_input("Pergunte algo sobre os documentos..."):
                             yield chunk
             except Exception as e:
                 yield f"❌ Erro de conexão com a API: {e}"
-                    
-       
-        full_response = st.write_stream(get_api_stream())
-        
-        st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+        for chunk in get_api_stream():
+            full_content += chunk
+            
+            if "--SOURCES--" in full_content:
+                parts = full_content.split("--SOURCES--")
+                actual_text = parts[0]
+                sources_raw = parts[1] if len(parts) > 1 else ""
+                container.markdown(actual_text + "▌")
+            else:
+                actual_text = full_content
+                container.markdown(actual_text + "▌")
+        container.markdown(actual_text)
+
+        if sources_raw:
+            st.divider()
+            with st.expander("📚 Fontes e Documentos Originais", expanded=True):
+            
+                lines = sources_raw.strip().split("\n")
+                cols = st.columns(2) 
+                for idx, line in enumerate(lines):
+                    if "|" in line:
+                        name, url = line.split("|")
+                        
+                        cols[idx % 2].link_button(
+                            f"📄 {name[:25]}...", 
+                            url, 
+                            use_container_width=True
+                        )
+
+      
+        st.session_state.messages.append({"role": "assistant", "content": actual_text})
