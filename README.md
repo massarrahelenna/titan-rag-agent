@@ -1,123 +1,140 @@
-# 🤖 Projeto Titan
-> **Agente de Inteligência Científica (RAG)**
+# 🤖 Project Titan
+> **Scientific Intelligence Agent (RAG)**
 
-
-O Projeto Titan é um ecossistema de inteligência artificial projetado para realizar análises técnicas profundas e sínteses de alta fidelidade a partir de grandes volumes de documentos científicos. Utilizando uma arquitetura de Geração Aumentada de Recuperação (RAG), o agente é capaz de "ler" e correlacionar informações entre dezenas de artigos simultaneamente, mantendo precisão absoluta e rastreabilidade de fontes.
-
----
-
-## O que este Agente faz?
-
-Este agente não apenas responde perguntas; ele atua como um Pesquisador Sênior Virtual:
-
-* **Análise Multidocumento:** Processa até 50+ PDFs técnicos (ex: papers do arXiv) de uma só vez.
-* **Contexto de 1 Milhão de Tokens:** Graças ao Claude 4.6 Sonnet, o agente mantém a "memória" de todo o repositório durante a análise, permitindo cruzamento de dados complexos.
-* **Geração de Relatórios:** Cria sínteses estruturadas em Markdown sobre tendências, metodologias e lacunas de pesquisa.
-* **Rastreabilidade (Citações):** Cada resposta inclui links diretos para os objetos no Amazon S3 de onde a informação foi extraída.
+Project Titan is an artificial intelligence ecosystem designed to perform deep technical analysis and high-fidelity synthesis from large volumes of scientific documents. Using a Retrieval-Augmented Generation (RAG) architecture, the agent can "read" and correlate information across dozens of articles simultaneously, maintaining absolute accuracy and source traceability.
 
 ---
 
-## 🏗️ Arquitetura do Sistema
+## What does this Agent do?
 
-O projeto utiliza uma esteira de dados serverless na AWS:
+This agent does more than answer questions — it acts as a **Virtual Senior Researcher**:
 
-* **Frontend (Streamlit):** Interface de usuário para chat e upload de arquivos.
-* **Backend (FastAPI):** Orquestrador que gerencia o fluxo de streaming e a lógica de agentes.
-* **Vetorização:** Amazon Bedrock Knowledge Bases utilizando **Titan Text Embeddings v2.**
-* **Processamento:** **Claude 4.6 Sonnet** via Inference Profile para máxima disponibilidade.
+- **Multi-Document Analysis:** Processes 50+ technical PDFs (e.g. arXiv papers) at once.
+- **1 Million Token Context:** Powered by Claude Sonnet 4.6, the agent retains "memory" of the entire repository during analysis, enabling complex cross-referencing.
+- **Report Generation:** Creates structured Markdown syntheses on research trends, methodologies, and knowledge gaps.
+- **Traceability (Citations):** Every response includes direct links to the Amazon S3 objects from which the information was extracted.
+
+---
+
+## 🏗️ System Architecture
+
+The project runs on a serverless AWS data pipeline:
+
+- **Frontend (Streamlit):** User interface for chat and file uploads.
+- **Backend (FastAPI):** Orchestrator that manages the streaming flow and agent logic.
+- **Vectorization:** Amazon Bedrock Knowledge Bases using **Titan Text Embeddings v2**.
+- **Processing:** **Claude Sonnet 4.6** via Inference Profile for maximum availability.
 
 ---
 
 ## 🛠️ Tech Stack
-|Camada|Tecnologia|
-|------|----------|
-|Linguagem	|Python 3.12+|
-|IA Foundation Model|	Anthropic Claude 4.6 Sonnet (Lançado em Fev/2026)|
-|Orquestração de IA|	Amazon Bedrock|
-|Backend Framework| FastAPI + Uvicorn (Streaming Engine)|
-|Frontend Framework|Streamlit|
-|Embeddings|	Amazon Titan Text Embeddings v2|
-|Cloud Infrastructure|	AWS (S3, IAM, OpenSearch)|
-|Interface de API|	Boto3 (AWS SDK for Python)|
+
+| Layer | Technology |
+|-------|------------|
+| Language | Python 3.12+ |
+| AI Foundation Model | Anthropic Claude Sonnet 4.6 |
+| AI Orchestration | Amazon Bedrock |
+| Backend Framework | FastAPI + Uvicorn (Streaming Engine) |
+| Frontend Framework | Streamlit |
+| Embeddings | Amazon Titan Text Embeddings v2 |
+| Cloud Infrastructure | AWS (S3, IAM, OpenSearch) |
+| API Interface | Boto3 (AWS SDK for Python) |
 
 ---
 
-## ⚙️ Configuração e Instalação
+## ⚙️ Setup & Installation
 
-**Pré-requisitos**
-* Conta AWS com acesso ao Amazon Bedrock e Claude 4.6 habilitado.
-* Docker e Docker Compose instalados (com integração WSL2 ativa).
+**Prerequisites**
+- AWS account with access to Amazon Bedrock and Claude Sonnet 4.6 enabled.
+- Docker and Docker Compose installed (with WSL2 integration active).
 
-**Instalação**
-### 1. Clonar o Repositório
+### 1. Clone the repository
 ```bash
 git clone https://github.com/massarrahelenna/titan.git
 cd titan
 ```
-### 2. Instale as dependências:
+
+### 2. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
-### 3. Configure suas variáveis de ambiente no arquivo `.env`:
-```bash
-AWS_ACCESS_KEY_ID=sua_chave
-AWS_SECRET_ACCESS_KEY=seu_segredo
-AWS_REGION=us-east-1
-KNOWLEDGE_BASE_ID=sua_chave
-```
-## 🚀 Como Executar
-Você pode rodar o Agente Titan de duas formas:
 
-### **Opção A: Via Docker (Recomendado 🐳)**
-Esta opção sobe automaticamente o Backend e o Frontend em containers separados, já configurando a comunicação entre eles.
-### Construir a imagem:
+### 3. Configure your environment variables in the `.env` file
 ```bash
-docker compose up --build
+AWS_ACCESS_KEY_ID=your_key
+AWS_SECRET_ACCESS_KEY=your_secret
+AWS_REGION=us-east-1
+KNOWLEDGE_BASE_ID=your_key
 ```
-### Rodar o container:
+
+---
+
+## 🚀 How to Run
+
+### **Option A: Via Docker (Recommended 🐳)**
+
+Automatically starts the Backend and Frontend in separate containers with networking pre-configured.
+
 ```bash
+# Build the image
+docker compose up --build
+
+# Run the container
 docker run -p 8501:8501 --env-file .env titan-agent
 ```
-* Interface (UI): `http://localhost:8501`
-* API (Docs): `http://localhost:8000/docs`
 
-### **Opção B: Localmente (Desenvolvimento)**
-Se preferir rodar fora do Docker, você precisará de dois terminais:
-### Ative seu ambiente virtual:
+- UI: `http://localhost:8501`
+- API Docs: `http://localhost:8000/docs`
+
+### **Option B: Locally (Development)**
+
+Requires two separate terminals.
+
 ```bash
-source .venv/bin/activate  # Linux/Mac
-# ou
-.venv\Scripts\activate     # Windows
+# Activate your virtual environment
+source .venv/bin/activate   # Linux/Mac
+.venv\Scripts\activate      # Windows
 ```
-### Terminal 1 (Backend):
+
 ```bash
+# Terminal 1 — Backend
 python src/api/main.py
-```
-### Terminal 2 (Frontend):
-```bash
+
+# Terminal 2 — Frontend
 streamlit run src/interface/app.py
 ```
 
-### 📈 Resultados Identificados
-Em testes iniciais com a base de dados atual, o agente identificou com sucesso os seguintes pilares tecnológicos nos documentos:
-* **Robótica Embodied:** Evolução de políticas para robôs humanoides.
-* **LLM-as-a-Judge:** Automação da avaliação de modelos através de orquestração.
-* **Benchmarking Eficiente:** Novas métricas para avaliação de performance em larga escala.
+---
 
-### 📂 Fluxo de Upload e Ingestão
-O sistema agora possui um pipeline automatizado para novos documentos:
-* **Upload:** O usuário sobe um PDF via Streamlit.
-* **S3 Storage:** O arquivo é salvo no prefixo raw_documents/ do seu bucket.
-* **Auto-Sync:** O código dispara o start_ingestion_job no Amazon Bedrock.
-* **Knowledge Update:** Em instantes, o Claude 4.6 já consegue responder sobre o novo conteúdo.
+## 📈 Identified Results
 
-### 📂 Estrutura de Pastas
+In initial tests with the current dataset, the agent successfully identified the following technology pillars across the documents:
+
+- **Embodied Robotics:** Policy evolution for humanoid robots.
+- **LLM-as-a-Judge:** Automated model evaluation through orchestration.
+- **Efficient Benchmarking:** New metrics for large-scale performance evaluation.
+
+---
+
+## 📂 Upload & Ingestion Flow
+
+The system features an automated pipeline for new documents:
+
+1. **Upload:** User submits a PDF via Streamlit.
+2. **S3 Storage:** The file is saved under the `raw_documents/` prefix in your bucket.
+3. **Auto-Sync:** The code triggers `start_ingestion_job` on Amazon Bedrock.
+4. **Knowledge Update:** Claude Sonnet 4.6 can answer questions about the new content within moments.
+
+---
+
+## 📂 Project Structure
 
 ```text
 titan/
 ├── src/
-│   ├── api/            # Servidor FastAPI (Streaming)
-│   ├── interface/      # UI Streamlit
-│   └── agents/         # Lógica de conexão AWS Bedrock
-├── requirements.txt    # Bibliotecas (boto3, fastapi, streamlit...)
-└── docker-compose.yml  # Orquestração dos serviços
+│   ├── api/            # FastAPI server (Streaming)
+│   ├── interface/      # Streamlit UI
+│   └── agents/         # AWS Bedrock connection logic
+├── requirements.txt    # Dependencies (boto3, fastapi, streamlit...)
+└── docker-compose.yml  # Service orchestration
+```
